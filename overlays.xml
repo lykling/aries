@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+	<repo quality="experimental" status="unofficial">
+		<name>aries</name>
+		<description>overlay for myself</description>
+		<homepage>https://github.com/lykling/aries/</homepage>
+		<owner>
+			<email>lykling.lyk@gmail.com</email>
+			<name>lykling</name>
+		</owner>
+		<source type="mercurial">https://github.com/lykling/aries.git</source>
+		<feed>http://github.com/lykling/aries/atom</feed>
+		<feed>http://github.com/lykling/aries/rss</feed>
+	</repo>
+</repositories>
