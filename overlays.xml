@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
 <repositories xmlns="" version="1.0">
-	<repo quality="experimental" status="unofficial">
-		<name><![CDATA[aries]]></name>
-		<description lang="en"><![CDATA[overlay for myself]]></description>
-		<homepage>https://github.com/lykling/aries/</homepage>
-		<owner type="person">
-			<email>lykling.lyk@gmail.com</email>
-			<name><![CDATA[lykling]]></name>
-		</owner>
-		<source type="git">git://github.com/lykling/aries.git</source>
-		<feed>https://github.com/lykling/aries/commits/master.atom</feed>
-	</repo>
+    <repo quality="experimental" status="unofficial">
+        <name><![CDATA[aries]]></name>
+        <description lang="en"><![CDATA[overlay for myself]]></description>
+        <homepage>https://github.com/lykling/aries/</homepage>
+        <owner type="person">
+            <email>lykling.lyk@gmail.com</email>
+            <name><![CDATA[lykling]]></name>
+        </owner>
+        <source type="git">git://github.com/lykling/aries.git</source>
+        <feed>https://github.com/lykling/aries/commits/master.atom</feed>
+    </repo>
 </repositories>
