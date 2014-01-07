@@ -1,0 +1,28 @@
+#!/sbin/runscript
+# Copyright 1999-2014 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+SEAFILE_PID="--pidfile /var/run/seafile.pid"
+SEAFILE_LOG="/var/log/seafile.log"
+WORK_DIR="/opt/seafile"
+VERSION="2.1.0"
+
+depend() {
+	need net
+	use logger
+}
+
+start() {
+	ebegin "Starting Seafile"
+		sh ${WORK_DIR}/seafile-server-${VERSION}/seafile.sh start
+		sh ${WORK_DIR}/seafile-server-${VERSION}/seahub.sh start
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping Seafile"
+		sh ${WORK_DIR}/seafile-server-${VERSION}/seafile.sh stop
+		sh ${WORK_DIR}/seafile-server-${VERSION}/seahub.sh stop
+	eend $?
+}
