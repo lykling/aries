@@ -7,7 +7,7 @@ PYTHON_COMPAT=( python{2_6,2_7} )
 
 inherit distutils-r1 eutils readme.gentoo systemd
 
-MY_PN="DenyHosts"
+MY_PN="denyhosts"
 MY_P="${MY_PN}-${PV}"
 
 DESCRIPTION="DenyHosts is a utility to help sys admins thwart ssh hackers"
