@@ -63,9 +63,11 @@ src_install() {
 		archpkg="${ARCH_NAME_I386}"
 	fi
 	into /opt/seafile/${MY_P//_/-}/seafile
+	insopts -m755
 	dobin ${MY_P//_/-}/seafile/bin/* || die
 
 	exeinto /opt/seafile/${MY_P//_/-}
+	insopts -m755
 	doexe ${MY_P//_/-}/*.sh || die
 
 	insinto /opt/seafile
