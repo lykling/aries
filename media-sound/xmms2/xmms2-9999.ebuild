@@ -2,7 +2,11 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
+EAPI=3
+
 inherit eutils toolchain-funcs git-r3
+
+MY_P="${P}"
 
 DESCRIPTION="X(cross)platform Music Multiplexing System. The new generation of the XMMS player."
 HOMEPAGE="http://xmms2.xmms.org"
@@ -12,7 +16,7 @@ EGIT_REPO_URI="git://git.xmms.se/xmms2/xmms2-devel.git"
 LICENSE="GPL-2 LGPL-2.1"
 SLOT="0"
 KEYWORDS=""
-IUSE="aac alsa ao asx avahi avcodec cdda clientonly coreaudio curl cpp daap diskwrite ecore eq fam flac jack lastfm mac mms modplug mp3 mp4 musepack nophonehome ofa oss perl python rss ruby samba shout sid speex vorbis wma xml xspf"
+IUSE="aac alsa ao asx avcodec cdda clientonly coreaudio curl cpp daap diskwrite ecore eq fam flac jack mac mms modplug mp3 mp4 musepack nophonehome ofa oss perl python rss ruby samba shout sid speex vorbis wma xml xspf"
 
 RESTRICT="mirror"
 
@@ -21,7 +25,6 @@ DEPEND="!clientonly? (
 		aac? ( >=media-libs/faad2-2.0 )
 		alsa? ( media-libs/alsa-lib )
 		ao? ( media-libs/libao )
-		avahi? ( net-dns/avahi )
 		cdda? ( >=media-libs/libdiscid-0.1.1
 			>=media-sound/cdparanoia-3.9.8 )
 		curl? ( >=net-misc/curl-7.15.1
@@ -56,7 +59,14 @@ DEPEND="!clientonly? (
 
 RDEPEND="${DEPEND}"
 
-S=${WORKDIR}/${version}
+S="${WORKDIR}/${MY_P}"
+
+src_prepare() {
+	git submodule update --init
+	if has_version dev-libs/libcdio-paranoia; then
+		sed -i -e 's:cdio/cdda.h:cdio/paranoia/cdda.h:' src/plugins/cdda/cdda.c || die
+	fi
+}
 
 src_compile() {
 	local exc=""
@@ -66,10 +76,10 @@ src_compile() {
 	if use clientonly ; then
 		exc="--without-xmms2d=1 "
 	else
-		for x in avahi cpp:xmmsclient++,xmmsclient++-glib ecore:xmmsclient-ecore fam:medialib-updater nophonehome:et perl python ruby ; do
+		for x in cpp:xmmsclient++,xmmsclient++-glib ecore:xmmsclient-ecore fam:medialib-updater nophonehome:et perl python ruby ; do
 			use ${x/:*} || excl_opts="${excl_opts},${x/*:}"
 		done
-		for x in aac:faad alsa ao asx avcodec cdda coreaudio curl daap diskwrite eq:equalizer flac jack lastfm mac mp3:mad mp4 mms modplug musepack ofa oss rss samba sid speex vorbis xml xspf ; do
+		for x in aac:faad alsa ao asx avcodec cdda coreaudio curl daap diskwrite eq:equalizer flac jack mac mp3:mad mp4 mms modplug musepack ofa oss rss samba sid speex vorbis xml xspf ; do
 			use ${x/:*} || excl_pls="${excl_pls},${x/*:}"
 		done
 	fi
@@ -92,7 +102,7 @@ src_compile() {
 }
 
 src_install() {
-	"${S}"/waf --destdir="${D}" install || die
+	"${S}"/waf --without-ldconfig --destdir="${D}" install || die
 	dodoc AUTHORS TODO README
 }
 
